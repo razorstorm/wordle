@@ -19,7 +19,13 @@ const config = {
         use: ['style-loader', 'css-loader']
         }
     ]
-  }
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      $: 'jquery'
+    })
+  ]
 };
 
 module.exports = config;

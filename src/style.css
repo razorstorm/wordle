@@ -1,0 +1,11 @@
+.row.row-for-progress{
+  display: flex;
+  align-items: center;
+}
+div.progress{
+  margin:0;
+}
+
+.progress-bar {
+	transition: width .05s ease;
+}
