@@ -9,3 +9,8 @@ div.progress{
 .progress-bar {
 	transition: width .05s ease;
 }
+
+#bottomPane {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
