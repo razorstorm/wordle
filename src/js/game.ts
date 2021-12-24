@@ -2,7 +2,11 @@ import 'jquery';
 import Panels from './panels';
 import Player from './player';
 declare global {
-  interface Window { hireDev: Function; makeCode: Function; }
+  interface Window {
+    hireDev: Function;
+    makeCode: Function;
+    upgradeDev: Function;
+  }
 }
 
 jQuery(function () {
@@ -40,6 +44,10 @@ jQuery(function () {
 
   window.hireDev = () => {
     player.hireDev();
+  }
+
+  window.upgradeDev = () => {
+    player.upgradeDev();
   }
 
   const gameClock = setInterval(runFrame, 1000 / framesPerSecond);

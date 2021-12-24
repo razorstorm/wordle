@@ -7,7 +7,7 @@ interface PlayerData {
     prestigeBonus: number;
     // by default one commit makes one star
     commitUpgradeLevel: number;
-    devLevel: number;
+    developerLevel: number;
     useSO: boolean;
     locPerCommit: number[];
     myLocPerCommit: number[];
@@ -30,7 +30,7 @@ class Player implements PlayerData {
     prestigeBonus: number;
     // by default one commit makes one star
     commitUpgradeLevel: number;
-    devLevel: number;
+    developerLevel: number;
     useSO: boolean;
     locPerCommit: number[];
     myLocPerCommit: number[];
@@ -52,7 +52,7 @@ class Player implements PlayerData {
             this.stars = 0;
             this.prestigeBonus = 0;
             this.commitUpgradeLevel = 1;
-            this.devLevel = 0;
+            this.developerLevel = 0;
             this.useSO = false;
             this.locPerCommit = [10, 50];
             this.myLocPerCommit = [10, 50];
@@ -70,7 +70,7 @@ class Player implements PlayerData {
             this.myCommitProgress = 0;
         }
         else {
-            Object.assign(this, playerData); 
+            Object.assign(this, playerData);
         }
     }
 
@@ -79,10 +79,7 @@ class Player implements PlayerData {
         this.commitProgress += commitIncrementalProgress * this.developers;
 
         if (this.commitProgress >= 1.0) {
-            this.commitProgress -= 1.0;
-            this.commits += 1;
-            this.prevCommitLoc = getRandomInt(this.locPerCommit[0], this.locPerCommit[1]);
-            this.loc += this.prevCommitLoc;
+            this.makeCommit();
         }
     }
 
@@ -100,6 +97,19 @@ class Player implements PlayerData {
         return new Player();
     }
 
+    makeCommit() {
+        if (this.commitProgress >= 1.0) {
+            this.commitProgress -= 1.0;
+            this.commits += 1;
+            this.prevCommitLoc = getRandomInt(this.getLocPerCommit()[0], this.getLocPerCommit()[1]);
+            this.loc += this.prevCommitLoc;
+        }
+    }
+
+    getLocPerCommit() {
+        return [this.locPerCommit[0] * GameUtils.devLocScaling(this.developerLevel), this.locPerCommit[1] * GameUtils.devLocScaling(this.developerLevel)];
+    }
+
     loseStars(amount: number) {
         this.stars -= amount;
         this.stars = Math.max(0, this.stars);
@@ -110,8 +120,8 @@ class Player implements PlayerData {
         // return this.developerCost;
     }
 
-    getDevLevelCost(): number {
-        return GameUtils.devLevelCostScaling(this.devLevel);
+    getDevUpgradeCost(): number {
+        return GameUtils.devLevelCostScaling(this.developerLevel);
     }
 
     canHireDev() {
@@ -137,15 +147,15 @@ class Player implements PlayerData {
         }
     }
 
-    canBuyDevLevel() {
-        return this.stars >= this.getDevLevelCost();
+    canUpgradeDev() {
+        return this.loc >= this.getDevUpgradeCost();
     }
 
-    buyDevLevel() {
-        if (this.canBuyDevLevel()) {
-            const cost = this.getDevLevelCost();
-            this.loseStars(cost);
-            this.devLevel += 1;
+    upgradeDev() {
+        if (this.canUpgradeDev()) {
+            const cost = this.getDevUpgradeCost();
+            this.loc -= cost;
+            this.developerLevel += 1;
         }
     }
 
@@ -154,7 +164,7 @@ class Player implements PlayerData {
     }
 
     starPerDev() {
-        return GameUtils.devStarScaling(this.devLevel);
+        return GameUtils.devStarScaling(this.developerLevel);
     }
 
     getCommitUpgradeCost(): number {
@@ -177,11 +187,11 @@ class Player implements PlayerData {
         return GameUtils.commitUpgradeMultiplierScaling(this.commitUpgradeLevel);
     }
 
-    makeCommit() {
-        const starsToGain = this.starsPerCommit();
-        this.gainStars(starsToGain);
-        console.log(starsToGain, this.stars);
-    }
+    // makeCommit() {
+    //     const starsToGain = this.starsPerCommit();
+    //     this.gainStars(starsToGain);
+    //     console.log(starsToGain, this.stars);
+    // }
 
     gainStars(stars: number) {
         let multiplier = 1;
