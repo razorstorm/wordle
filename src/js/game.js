@@ -5,17 +5,21 @@ $(document).ready(function () {
   let locPerCommit = [10, 50];
   let commits = 0;
   let loc = 0;
-  let secondsPerCommit = 1.0;
+  let secondsPerCommit = 5.0;
   let commitsPerSecond = 1.0 / secondsPerCommit;
   let commitsPerMillisecond = commitsPerSecond / 1000.0;
   let commitProgress = 0;
   let prevCommitLoc = 0;
+
+  let myCommitProgress = 0;
   const locDisplay = $("#locDisplay");
   const commitsDisplay = $("#commitsDisplay");
   const prevCommitLocDisplay = $("#prevCommitLocDisplay");
   const commitProgressBar = $("#commitProgress");
+  const myCommitProgressDisplay = $("#myCommitProgress");
+  const secondsPerCommitDisplay = $("#secondsPerCommit");
 
-
+ 
   function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -45,7 +49,6 @@ $(document).ready(function () {
     commitProgressBar.css({
       width: commitProgressPercent + "%"
     });
-    console.log(commitProgressPercent);
     updateData();
     previousTime = currTime;
   }
@@ -56,6 +59,11 @@ $(document).ready(function () {
       prevCommitLocDisplay.text(" (+" + prevCommitLoc+")");
     }
     commitsDisplay.text(commits);
+    secondsPerCommitDisplay.text(secondsPerCommit);
+  }
+
+  const makeCode = () => {
+
   }
 
   // 60 fps
