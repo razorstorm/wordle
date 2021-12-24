@@ -15,7 +15,7 @@ jQuery(function () {
   let previousTime: Date = null;
   let panels: Panels = new Panels();
   const framesPerSecond: number = 30.0;
-  const secondsPerSave: number = 1;
+  const secondsPerSave: number = 5;
   const gameStorage = window.localStorage;
   const log = $("#log");
 
@@ -35,7 +35,7 @@ jQuery(function () {
 
   const saveGame = () => {
     gameStorage.setItem('player', JSON.stringify(player));
-    log.text(`Saved at ${new Date()}`);
+    log.text(`Last saved at ${new Date()}`);
   }
 
   window.makeCode = () => {
