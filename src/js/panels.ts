@@ -36,7 +36,7 @@ class Panels {
       this.prevCommitLocDisplay.text(" (+" + player.prevCommitLoc + ")");
     }
     this.commitsDisplay.text(player.commits);
-    this.secondsPerCommitDisplay.text(player.secondsPerCommit);
+    this.secondsPerCommitDisplay.text(player.timePerCommit().toFixed(2));
     this.developersDisplay.text(player.developers);
     this.developersLevelDisplay.text(player.developerLevel);
     this.locPerCommitDisplay.text(`${player.getLocPerCommit()[0].toFixed(0)} - ${player.getLocPerCommit()[1].toFixed(0)}`);

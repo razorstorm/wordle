@@ -83,6 +83,10 @@ class Player implements PlayerData {
         }
     }
 
+    timePerCommit() {
+        return this.secondsPerCommit / this.developers;
+    }
+
     serialize(): string {
         return JSON.stringify(this);
     }
