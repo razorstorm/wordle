@@ -13,17 +13,20 @@ $(document).ready(function () {
   let commitsPerMillisecond = commitsPerSecond / 1000.0;
   let commitProgress = 0;
   let prevCommitLoc = 0;
+  let developers = 1;
+  let developerCost = 300;
 
   let myCommitProgress = 0;
   const locDisplay = $("#locDisplay");
   const commitsDisplay = $("#commitsDisplay");
+  const developersDisplay = $("#developersDisplay");
   const prevCommitLocDisplay = $("#prevCommitLocDisplay");
   const commitProgressBar = $("#commitProgress");
   const myCommitProgressDisplay = $("#myCommitProgress");
   const secondsPerCommitDisplay = $("#secondsPerCommit");
 
   const makeCodeButton = $("#makeCodeButton");
-
+  const hireDevsButton = $("#hireDevsButton");
 
   function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -39,9 +42,8 @@ $(document).ready(function () {
     }
     const timeElapsed = currTime - previousTime;
     const commitIncrementalProgress = commitsPerMillisecond * timeElapsed;
-    // console.log(timeElapsed, commitIncrementalProgress);
-    commitProgress += commitIncrementalProgress;
-    // console.log(commitProgress, commits, loc);
+    commitProgress += commitIncrementalProgress * developers;
+
     if (commitProgress >= 1.0) {
       commitProgress -= 1.0;
       commits += 1;
@@ -60,6 +62,7 @@ $(document).ready(function () {
     }
     commitsDisplay.text(commits);
     secondsPerCommitDisplay.text(secondsPerCommit);
+    developersDisplay.text(developers);
 
     const commitProgressPercent = commitProgress * 100.0;
     commitProgressBar.css({
@@ -74,6 +77,12 @@ $(document).ready(function () {
     });
 
     myCommitProgressDisplay.text(myCommitProgressPercent.toFixed(2) + "%");
+
+    if(loc >= developerCost) {
+      hireDevsButton.prop("disabled", false);
+    } else {
+      hireDevsButton.prop("disabled", true);
+    }
   }
 
   window.makeCode = () => {
@@ -83,6 +92,13 @@ $(document).ready(function () {
       commits += 1;
       prevCommitLoc = getRandomInt(myLocPerCommit[0], myLocPerCommit[1]);
       loc += prevCommitLoc
+    }
+  }
+
+  window.hireDev = () => {
+    if(loc >= developerCost) {
+      loc -= developerCost;
+      developers++;
     }
   }
 
