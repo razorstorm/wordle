@@ -6,7 +6,7 @@ $(document).ready(function () {
   let myLocPerCommit = [10, 50];
   let commits = 0;
   let loc = 0;
-  let secondsPerCommit = 5.0;
+  let secondsPerCommit = 10.0;
   let clicksPerCommit = 10.0;
   let commitsPerClick = 1.0 / clicksPerCommit;
   let commitsPerSecond = 1.0 / secondsPerCommit;
