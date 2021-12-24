@@ -3,9 +3,12 @@ import 'jquery';
 $(document).ready(function () {
   let previousTime = null;
   let locPerCommit = [10, 50];
+  let myLocPerCommit = [10, 50];
   let commits = 0;
   let loc = 0;
   let secondsPerCommit = 5.0;
+  let clicksPerCommit = 10.0;
+  let commitsPerClick = 1.0 / clicksPerCommit;
   let commitsPerSecond = 1.0 / secondsPerCommit;
   let commitsPerMillisecond = commitsPerSecond / 1000.0;
   let commitProgress = 0;
@@ -19,7 +22,9 @@ $(document).ready(function () {
   const myCommitProgressDisplay = $("#myCommitProgress");
   const secondsPerCommitDisplay = $("#secondsPerCommit");
 
- 
+  const makeCodeButton = $("#makeCodeButton");
+
+
   function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -44,11 +49,6 @@ $(document).ready(function () {
       loc += prevCommitLoc
     }
 
-    const commitProgressPercent = commitProgress * 100.0;
-
-    commitProgressBar.css({
-      width: commitProgressPercent + "%"
-    });
     updateData();
     previousTime = currTime;
   }
@@ -56,16 +56,36 @@ $(document).ready(function () {
   const updateData = () => {
     locDisplay.text(loc);
     if (prevCommitLoc > 0) {
-      prevCommitLocDisplay.text(" (+" + prevCommitLoc+")");
+      prevCommitLocDisplay.text(" (+" + prevCommitLoc + ")");
     }
     commitsDisplay.text(commits);
     secondsPerCommitDisplay.text(secondsPerCommit);
+
+    const commitProgressPercent = commitProgress * 100.0;
+    commitProgressBar.css({
+      width: commitProgressPercent + "%"
+    });
+
+    const myCommitProgressPercent = myCommitProgress * 100.0;
+    myCommitProgressDisplay.css({
+      width: myCommitProgressPercent + "%"
+    });
   }
 
-  const makeCode = () => {
-
+  window.makeCode = () => {
+    myCommitProgress += commitsPerClick;
+    if (myCommitProgress >= 1.0) {
+      myCommitProgress -= 1.0;
+      commits += 1;
+      prevCommitLoc = getRandomInt(myLocPerCommit[0], myLocPerCommit[1]);
+      loc += prevCommitLoc
+    }
   }
 
+
+
+  // makeCodeButton.click = makeCode;
+  console.log(makeCodeButton);
   // 60 fps
   const gameClock = setInterval(runFrame, 1000 / 60.0);
 });
