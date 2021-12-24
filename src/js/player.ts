@@ -1,4 +1,5 @@
 import { GameUtils } from './gameUtils';
+import getRandomInt from './misc/utils';
 
 // StackOverFlow upgrade. Click to toggle whether to use SO, when using, have chance of reducing time between commits, but might lead to a 0 star commit due to "IM NOT ANSWERING YOUR QUESTION YOUR APPROACH IS BAD GO AND REWRITE YOUR ENTIRE COMPANY'S 100 GB CODE BASE TO USE MY APPROACH THATS MARGINALLY BETTER, etc"
 interface PlayerData {
@@ -13,28 +14,27 @@ class Player {
     prestigeBonus: number;
     // by default one commit makes one star
     commitUpgradeLevel: number;
-    devs: number;
     devLevel: number;
     useSO: boolean;
     locPerCommit: number[];
     myLocPerCommit: number[];
     commits: number;
-    loc:number;
-    secondsPerCommit:number;
-    clicksPerCommit:number;
-    commitsPerClick:number;
-    commitsPerSecond:number;
-    commitsPerMillisecond:number;
-    commitProgress:number;
-    prevCommitLoc:number;
-    developers:number;
-    developerCost:number;
+    loc: number;
+    secondsPerCommit: number;
+    clicksPerCommit: number;
+    commitsPerClick: number;
+    commitsPerSecond: number;
+    commitsPerMillisecond: number;
+    commitProgress: number;
+    prevCommitLoc: number;
+    developers: number;
+    developerCost: number;
+    myCommitProgress: number;
 
     constructor() {
         this.stars = 0;
         this.prestigeBonus = 0;
         this.commitUpgradeLevel = 1;
-        this.devs = 0;
         this.devLevel = 0;
         this.useSO = false;
         this.locPerCommit = [10, 50];
@@ -50,6 +50,19 @@ class Player {
         this.prevCommitLoc = 0;
         this.developers = 1;
         this.developerCost = 300;
+        this.myCommitProgress = 0;
+    }
+
+    runFrame(timeElapsed: number): void {
+        const commitIncrementalProgress = this.commitsPerMillisecond * timeElapsed;
+        this.commitProgress += commitIncrementalProgress * this.developers;
+
+        if (this.commitProgress >= 1.0) {
+            this.commitProgress -= 1.0;
+            this.commits += 1;
+            this.prevCommitLoc = getRandomInt(this.locPerCommit[0], this.locPerCommit[1]);
+            this.loc += this.prevCommitLoc;
+        }
     }
 
     serialize(): string {
@@ -72,7 +85,8 @@ class Player {
     }
 
     getDevCost(): number {
-        return GameUtils.devCostScaling(this.devs);
+        // return GameUtils.devCostScaling(this.devs);
+        return this.developerCost;
     }
 
     getDevLevelCost(): number {
@@ -80,14 +94,25 @@ class Player {
     }
 
     canBuyDev() {
-        return this.stars >= this.getDevCost();
+        // return this.stars >= this.getDevCost();
+        return this.loc >= this.getDevCost();
     }
 
     buyDev() {
         if (this.canBuyDev()) {
             const cost = this.getDevCost();
-            this.loseStars(cost);
-            this.devs += 1;
+            this.loc -= this.developerCost;
+            this.developers++;
+        }
+    }
+
+    makeCode() {
+        this.myCommitProgress += this.commitsPerClick;
+        if (this.myCommitProgress >= 1.0) {
+            this.myCommitProgress -= 1.0;
+            this.commits += 1;
+            this.prevCommitLoc = getRandomInt(this.myLocPerCommit[0], this.myLocPerCommit[1]);
+            this.loc += this.prevCommitLoc
         }
     }
 
@@ -104,7 +129,7 @@ class Player {
     }
 
     msPerDev() {
-        return GameUtils.devTimeScaling(this.devs);
+        // return GameUtils.devTimeScaling(this.devs);
     }
 
     starPerDev() {
