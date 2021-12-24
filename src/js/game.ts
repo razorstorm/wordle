@@ -6,10 +6,14 @@ declare global {
 }
 
 jQuery(function () {
-  let player: Player = new Player();
+  let playerData = localStorage.getItem('player');
+  let player: Player = new Player(JSON.parse(playerData));
   let previousTime: Date = null;
   let panels: Panels = new Panels();
   const framesPerSecond: number = 30.0;
+  const secondsPerSave: number = 1;
+  const gameStorage = window.localStorage;
+  const log = $("#log");
 
   const runFrame = () => {
     const currTime = new Date();
@@ -25,6 +29,11 @@ jQuery(function () {
     previousTime = currTime;
   }
 
+  const saveGame = () => {
+    gameStorage.setItem('player', JSON.stringify(player));
+    log.text(`Saved at ${new Date()}`);
+  }
+
   window.makeCode = () => {
     player.makeCode();
   }
@@ -32,6 +41,7 @@ jQuery(function () {
   window.hireDev = () => {
     player.hireDev();
   }
-  // 60 fps
+
   const gameClock = setInterval(runFrame, 1000 / framesPerSecond);
+  const saveClock = setInterval(saveGame, secondsPerSave);
 });

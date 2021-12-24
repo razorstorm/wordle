@@ -5,11 +5,27 @@ import getRandomInt from './misc/utils';
 interface PlayerData {
     stars: number;
     prestigeBonus: number;
+    // by default one commit makes one star
     commitUpgradeLevel: number;
-    devs: number;
+    devLevel: number;
+    useSO: boolean;
+    locPerCommit: number[];
+    myLocPerCommit: number[];
+    commits: number;
+    loc: number;
+    secondsPerCommit: number;
+    clicksPerCommit: number;
+    commitsPerClick: number;
+    commitsPerSecond: number;
+    commitsPerMillisecond: number;
+    commitProgress: number;
+    prevCommitLoc: number;
+    developers: number;
+    developerCost: number;
+    myCommitProgress: number;
 }
 
-class Player {
+class Player implements PlayerData {
     stars: number;
     prestigeBonus: number;
     // by default one commit makes one star
@@ -31,26 +47,31 @@ class Player {
     developerCost: number;
     myCommitProgress: number;
 
-    constructor() {
-        this.stars = 0;
-        this.prestigeBonus = 0;
-        this.commitUpgradeLevel = 1;
-        this.devLevel = 0;
-        this.useSO = false;
-        this.locPerCommit = [10, 50];
-        this.myLocPerCommit = [10, 50];
-        this.commits = 0;
-        this.loc = 0;
-        this.secondsPerCommit = 10.0;
-        this.clicksPerCommit = 10.0;
-        this.commitsPerClick = 1.0 / this.clicksPerCommit;
-        this.commitsPerSecond = 1.0 / this.secondsPerCommit;
-        this.commitsPerMillisecond = this.commitsPerSecond / 1000.0;
-        this.commitProgress = 0;
-        this.prevCommitLoc = 0;
-        this.developers = 1;
-        this.developerCost = 300;
-        this.myCommitProgress = 0;
+    constructor(playerData?: PlayerData) {
+        if (!playerData) {
+            this.stars = 0;
+            this.prestigeBonus = 0;
+            this.commitUpgradeLevel = 1;
+            this.devLevel = 0;
+            this.useSO = false;
+            this.locPerCommit = [10, 50];
+            this.myLocPerCommit = [10, 50];
+            this.commits = 0;
+            this.loc = 0;
+            this.secondsPerCommit = 10.0;
+            this.clicksPerCommit = 10.0;
+            this.commitsPerClick = 1.0 / this.clicksPerCommit;
+            this.commitsPerSecond = 1.0 / this.secondsPerCommit;
+            this.commitsPerMillisecond = this.commitsPerSecond / 1000.0;
+            this.commitProgress = 0;
+            this.prevCommitLoc = 0;
+            this.developers = 1;
+            this.developerCost = 300;
+            this.myCommitProgress = 0;
+        }
+        else {
+            Object.assign(this, playerData); 
+        }
     }
 
     runFrame(timeElapsed: number): void {
