@@ -66,10 +66,14 @@ $(document).ready(function () {
       width: commitProgressPercent + "%"
     });
 
+    commitProgressBar.text(commitProgressPercent.toFixed(2) + "%");
+
     const myCommitProgressPercent = myCommitProgress * 100.0;
     myCommitProgressDisplay.css({
       width: myCommitProgressPercent + "%"
     });
+
+    myCommitProgressDisplay.text(myCommitProgressPercent.toFixed(2) + "%");
   }
 
   window.makeCode = () => {
