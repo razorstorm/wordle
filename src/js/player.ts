@@ -85,23 +85,23 @@ class Player {
     }
 
     getDevCost(): number {
-        // return GameUtils.devCostScaling(this.devs);
-        return this.developerCost;
+        return GameUtils.devCostScaling(this.developers);
+        // return this.developerCost;
     }
 
     getDevLevelCost(): number {
         return GameUtils.devLevelCostScaling(this.devLevel);
     }
 
-    canBuyDev() {
+    canHireDev() {
         // return this.stars >= this.getDevCost();
         return this.loc >= this.getDevCost();
     }
 
-    buyDev() {
-        if (this.canBuyDev()) {
+    hireDev() {
+        if (this.canHireDev()) {
             const cost = this.getDevCost();
-            this.loc -= this.developerCost;
+            this.loc -= cost;
             this.developers++;
         }
     }

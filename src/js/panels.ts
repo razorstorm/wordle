@@ -48,20 +48,13 @@ class Panels {
 
     this.myCommitProgressDisplay.text(myCommitProgressPercent.toFixed(2) + "%");
 
-    if(player.loc >= player.developerCost) {
+    if(player.canHireDev()) {
       this.hireDevsButton.prop("disabled", false);
     } else {
       this.hireDevsButton.prop("disabled", true);
     }
 
-    this.hireDevsButton.text()
-  }
-
-  hireDev(player: Player) {
-    if(player.loc >= player.developerCost) {
-      player.loc -= player.developerCost;
-      player.developers++;
-    }
+    this.hireDevsButton.text(`Hire Developer (Cost: ${player.getDevCost()})`);
   }
 }
 

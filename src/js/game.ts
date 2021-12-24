@@ -9,6 +9,7 @@ jQuery(function () {
   let player: Player = new Player();
   let previousTime: Date = null;
   let panels: Panels = new Panels();
+  const framesPerSecond: number = 30.0;
 
   const runFrame = () => {
     const currTime = new Date();
@@ -29,8 +30,8 @@ jQuery(function () {
   }
 
   window.hireDev = () => {
-    panels.hireDev(player);
+    player.hireDev();
   }
   // 60 fps
-  const gameClock = setInterval(runFrame, 1000 / 60.0);
+  const gameClock = setInterval(runFrame, 1000 / framesPerSecond);
 });
