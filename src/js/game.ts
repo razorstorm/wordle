@@ -51,5 +51,5 @@ jQuery(function () {
   }
 
   const gameClock = setInterval(runFrame, 1000 / framesPerSecond);
-  const saveClock = setInterval(saveGame, secondsPerSave);
+  const saveClock = setInterval(saveGame, secondsPerSave * 1000);
 });
