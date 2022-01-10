@@ -64,7 +64,6 @@ jQuery(function () {
   }
 
   const addLetter = (letter: string) => {
-    console.log(currWord);
     if (currGuess.length < currWord.length) {
       currGuess += letter;
       const currBox = currRow.children(".empty").first();
