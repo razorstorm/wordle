@@ -1,1 +1,3 @@
-# Github Idle
+# Wordle
+
+npm run dev
