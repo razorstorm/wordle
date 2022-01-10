@@ -74,6 +74,8 @@ jQuery(function () {
       currBox.text(letter);
       currBox.removeClass("empty");
       currBox.addClass("unchecked");
+
+      currBox.append("<div class='border guess-box back'>"+letter+"</div>");
     }
   }
 
@@ -101,21 +103,24 @@ jQuery(function () {
     // Iterate again and change the actual tiles
     for (let i = 0; i < currWord.length; i++) {
       const currBox = currRow.children(".unchecked").first();
+      const currBack = currBox.children(".back");
       if (results[i] === "CORRECT") {
         results[i] = "CORRECT";
-        currBox.addClass("bg-success white");
+        currBack.addClass("bg-success white");
       } else if (results[i] === "NOT FOUND") {
-        currBox.addClass("bg-secondary white");
+        currBack.addClass("bg-secondary white");
       } else {
         const letter = currGuess[i];
         const count = wordDict[letter];
         if (count > 0) {
-          currBox.addClass("bg-warning white");
+          currBack.addClass("bg-warning white");
           wordDict[letter]--;
         } else {
-          currBox.addClass("bg-secondary white");
+          currBack.addClass("bg-secondary white");
         }
       }
+      // currBox.addClass("back");
+      currBack.removeClass("back");
       currBox.removeClass("unchecked");
     };
 
