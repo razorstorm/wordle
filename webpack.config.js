@@ -4,11 +4,11 @@ const path = require('path');
 const config = {
   entry: './src/index.ts',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'docs'),
     filename: 'bundle.js'
   },
   devServer: {
-    static: './dist',
+    static: './docs',
     hot: true,
   },
   mode: "development",
