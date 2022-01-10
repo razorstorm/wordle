@@ -71,11 +71,12 @@ jQuery(function () {
       console.log(currGuess);
       const currBox = currRow.children(".empty").first();
       console.log(currRow, currBox);
-      currBox.text(letter);
+      // currBox.text(letter);
       currBox.removeClass("empty");
       currBox.addClass("unchecked");
 
-      currBox.append("<div class='border guess-box back'>"+letter+"</div>");
+      currBox.append("<div class='border guess-box inner front'>"+letter+"</div>");
+      currBox.append("<div class='border guess-box inner back'>"+letter+"</div>");
     }
   }
 
@@ -103,6 +104,7 @@ jQuery(function () {
     // Iterate again and change the actual tiles
     for (let i = 0; i < currWord.length; i++) {
       const currBox = currRow.children(".unchecked").first();
+      const currFront = currBox.children(".front");
       const currBack = currBox.children(".back");
       if (results[i] === "CORRECT") {
         results[i] = "CORRECT";
@@ -119,7 +121,7 @@ jQuery(function () {
           currBack.addClass("bg-secondary white");
         }
       }
-      // currBox.addClass("back");
+      currFront.addClass("back");
       currBack.removeClass("back");
       currBox.removeClass("unchecked");
     };
