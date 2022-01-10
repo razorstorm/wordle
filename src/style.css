@@ -92,7 +92,4 @@ div.progress{
 
 .collapsed {
   max-height: 0px !important;
-
-  /* opacity: 0; */
-  /* transition: height 12s linear; */
 }
