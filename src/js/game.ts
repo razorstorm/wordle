@@ -48,7 +48,7 @@ jQuery(function () {
     "words.txt",
     (data: string) => {
       let wordList = data.split("\n");
-      currWord = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase();
+      currWord = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase();
       currWordDict = toDict(currWord);
     },
   );
@@ -70,8 +70,8 @@ jQuery(function () {
       currBox.removeClass("empty");
       currBox.addClass("unchecked");
 
-      currBox.append("<div class='border guess-box inner front'>"+letter+"</div>");
-      currBox.append("<div class='border guess-box inner back'>"+letter+"</div>");
+      currBox.append("<div class='border guess-box inner front'>" + letter + "</div>");
+      currBox.append("<div class='border guess-box inner back'>" + letter + "</div>");
     }
   }
 
@@ -101,19 +101,26 @@ jQuery(function () {
       const currBox = currRow.children(".unchecked").first();
       const currFront = currBox.children(".front");
       const currBack = currBox.children(".back");
+      const letter = currGuess[i];
+      const keyForLetter = $("#keys_" + letter);
       if (results[i] === "CORRECT") {
         results[i] = "CORRECT";
         currBack.addClass("bg-success white");
+        keyForLetter.addClass("bg-success white");
       } else if (results[i] === "NOT FOUND") {
         currBack.addClass("bg-secondary white");
+        keyForLetter.addClass("bg-secondary white");
       } else {
-        const letter = currGuess[i];
         const count = wordDict[letter];
         if (count > 0) {
           currBack.addClass("bg-warning white");
+          keyForLetter.addClass("bg-warning white");
           wordDict[letter]--;
         } else {
           currBack.addClass("bg-secondary white");
+          if (!keyForLetter.hasClass("white")) {
+            keyForLetter.addClass("bg-secondary white");
+          }
         }
       }
       currFront.addClass("back");
@@ -126,7 +133,7 @@ jQuery(function () {
     currRow.removeClass("empty");
     currRow = $("#guessesContainer .row.empty").first();
 
-    if(results.every((item: string) => item === "CORRECT")) {
+    if (results.every((item: string) => item === "CORRECT")) {
       alert("GOOD JOB, PRESS REFRESH TO START AGAIN WITH NEW WORD");
       currRow = null;
     }
@@ -159,7 +166,7 @@ jQuery(function () {
   });
 
   window.toggleInstructions = () => {
-    if(instructionsShowing) {
+    if (instructionsShowing) {
       instructions_text.addClass("collapsed");
       toggle.addClass("rotated");
     } else {
