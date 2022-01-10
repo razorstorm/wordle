@@ -137,8 +137,6 @@ jQuery(function () {
 
   doc.on('keyup', function (e) {
     const char = e.originalEvent.key.toUpperCase();
-    // console.log(char);
-    // console.log(isLetter(char));
 
     if (isLetter(char)) {
       addLetter(char);
