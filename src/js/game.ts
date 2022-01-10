@@ -39,12 +39,26 @@ const subtractDicts = (first: { [letter: string]: number }, second: { [letter: s
 jQuery(function () {
   let currWord = "GORGE";
   let currWordDict = toDict(currWord);
-  let currRow = $("#guesses>.row:first-of-type");
+  let currRow = $("#guesses>.empty").first();
   let currGuess = "";
+  let guesses = [];
   console.log(currRow);
 
   const doc = $(document);
-  const makeGuess = (letter: string) => {
+
+  const removeLetter = () => {
+
+    if (currGuess.length > 0) {
+      currGuess = currGuess.substring(0, currGuess.length - 1);
+      const currBox = currRow.children(".unchecked").last();
+      currBox.text("");
+      currBox.addClass("empty");
+      currBox.removeClass("unchecked");
+      console.log(currGuess);
+    }
+  }
+
+  const addLetter = (letter: string) => {
     if (currGuess.length < currWord.length) {
       currGuess += letter;
       const currBox = currRow.children(".empty").first();
@@ -56,15 +70,20 @@ jQuery(function () {
   }
 
   const checkGuess = () => {
+    // TODO only allow check if guess is a valid word
+    if (currGuess.length != currWord.length) {
+      return;
+    }
+
     let wordDict = $.extend({}, currWordDict);
-    let results = Array.apply(null, Array(currWord.length)).map(function () {});
+    let results = Array.apply(null, Array(currWord.length)).map(function () { });
     // First figure out all the correct letters:
-    for(let i = 0; i < currWord.length; i++) {
+    for (let i = 0; i < currWord.length; i++) {
       const letter = currGuess[i];
-      if(currGuess[i] === currWord[i]) {
+      if (currGuess[i] === currWord[i]) {
         results[i] = "CORRECT";
         wordDict[letter]--;
-      } else if(currWordDict[currGuess[i]] === undefined) {
+      } else if (currWordDict[currGuess[i]] === undefined) {
         results[i] = "NOT FOUND";
       } else {
         results[i] = "WRONG LOCATION";
@@ -72,34 +91,36 @@ jQuery(function () {
     };
 
     // Iterate again and change the actual tiles
-    for(let i = 0; i < currWord.length; i++) {
+    for (let i = 0; i < currWord.length; i++) {
       const currBox = currRow.children(".unchecked").first();
-      if(results[i] === "CORRECT") {
+      if (results[i] === "CORRECT") {
         results[i] = "CORRECT";
         currBox.addClass("bg-success white");
-      } else if(results[i] === "NOT FOUND") {
-        currBox.addClass("bg-secondary white"); 
+      } else if (results[i] === "NOT FOUND") {
+        currBox.addClass("bg-secondary white");
       } else {
         const letter = currGuess[i];
         const count = wordDict[letter];
-        if(count > 0) {
-          currBox.addClass("bg-warning white"); 
+        if (count > 0) {
+          currBox.addClass("bg-warning white");
           wordDict[letter]--;
         } else {
-          currBox.addClass("bg-secondary white"); 
+          currBox.addClass("bg-secondary white");
         }
       }
-
       currBox.removeClass("unchecked");
     };
-      // if (currWord[currGuess.length - 1] === letter) {
-      //   currBox.addClass("bg-success"); // bg-secondary
-      // } else {
-      //   const currGuessDict = toDict(currGuess);
-      //   console.log(currGuess, currGuessDict);
-      //   const subtracted = subtractDicts(currWordDict, currGuessDict);
-      //   console.log(subtracted);
-      // }
+
+    guesses.push(currGuess);
+    currGuess = "";
+    currRow.removeClass("empty");
+    currRow = $("#guesses>.empty").first();
+    console.log(currRow);
+
+    if(results.every((item: string) => item === "CORRECT")) {
+      alert("GOOD JOB, PRESS REFRESH TO START AGAIN WITH NEW WORD");
+      currRow = null;
+    }
   }
 
   const isLetter = (text: string): boolean => {
@@ -115,11 +136,15 @@ jQuery(function () {
     console.log(isLetter(char));
 
     if (isLetter(char)) {
-      makeGuess(char);
+      addLetter(char);
     }
 
-    if(char === "ENTER") {
+    if (char === "ENTER") {
       checkGuess();
+    }
+
+    if (char === "BACKSPACE") {
+      removeLetter();
     }
   });
 });
