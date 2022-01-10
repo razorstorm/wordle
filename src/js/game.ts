@@ -39,7 +39,9 @@ jQuery(function () {
   let currGuess = "";
   let guesses = [];
   let instructionsShowing = true;
-  console.log(currRow);
+  const instructions_text = $("#instructions_text");
+  const toggle = $(".toggle");
+  const keys = $(".keys");
   const doc = $(document);
 
   $.get(
@@ -48,7 +50,6 @@ jQuery(function () {
       let wordList = data.split("\n");
       currWord = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase();
       currWordDict = toDict(currWord);
-      // console.log(currWord);
     },
   );
 
@@ -59,7 +60,6 @@ jQuery(function () {
       currBox.text("");
       currBox.addClass("empty");
       currBox.removeClass("unchecked");
-      console.log(currGuess);
     }
   }
 
@@ -67,10 +67,7 @@ jQuery(function () {
     console.log(currWord);
     if (currGuess.length < currWord.length) {
       currGuess += letter;
-      console.log(currGuess);
       const currBox = currRow.children(".empty").first();
-      console.log(currRow, currBox);
-      // currBox.text(letter);
       currBox.removeClass("empty");
       currBox.addClass("unchecked");
 
@@ -143,9 +140,7 @@ jQuery(function () {
     return (/[a-zA-Z]/).test(text);
   }
 
-  doc.on('keyup', function (e) {
-    const char = e.originalEvent.key.toUpperCase();
-
+  const processChar = (char: string) => {
     if (isLetter(char)) {
       addLetter(char);
     }
@@ -157,17 +152,27 @@ jQuery(function () {
     if (char === "BACKSPACE") {
       removeLetter();
     }
+  }
+
+  doc.on('keyup', function (e) {
+    const char = e.originalEvent.key.toUpperCase();
+    processChar(char);
   });
 
   window.toggleInstructions = () => {
     if(instructionsShowing) {
-      $("#instructions_text").addClass("collapsed");
-      $(".toggle").addClass("rotated");
+      instructions_text.addClass("collapsed");
+      toggle.addClass("rotated");
     } else {
-      $("#instructions_text").removeClass("collapsed");
-      $(".toggle").removeClass("rotated");
+      instructions_text.removeClass("collapsed");
+      toggle.removeClass("rotated");
     }
 
     instructionsShowing = !instructionsShowing;
   }
+
+  keys.on("click", e => {
+    console.log($(e.currentTarget).attr("value"));
+    processChar($(e.currentTarget).attr("value"));
+  });
 });

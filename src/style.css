@@ -17,12 +17,11 @@ div.progress{
 
 .guess-box {
   /* display: inline-block; */
-  width: 4.5rem;
-  height: 4.5rem;
+  width: 4.25rem;
+  height: 4.25rem;
   margin: .25rem;
   background-color: #f5f5f5;
   line-height: 4rem;
-  /* vertical-align: middle; */
   align-items: center; /* Vertical center alignment */
   justify-content: center; /* Horizontal center alignment */
   text-transform: uppercase;
@@ -47,7 +46,6 @@ div.progress{
 
 .white {
   color: white;
-  /* transform: rotateX(180deg); */
 }
 
 .back {
@@ -56,10 +54,11 @@ div.progress{
 
 #instructions {
   position: relative;
-  max-width: 576px;
+  max-width: 400px;
   background-color: white;
   height: auto;
-  box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 15px 0 rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
 
 #instructions_text {
@@ -93,4 +92,41 @@ div.progress{
 
 .collapsed {
   max-height: 0px !important;
+}
+
+.keys {
+  padding: 0;
+  width: 2.25rem;
+  height: 3.5rem;
+  margin: .125rem;
+  background-color: #d0d0d0;
+  line-height: 3.25rem;
+  align-items: center; /* Vertical center alignment */
+  justify-content: center; /* Horizontal center alignment */
+  text-transform: uppercase;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  font-size: 0.85rem;
+  user-select: none;
+  transition: all 0.2s linear;
+  backface-visibility: hidden;
+  position: relative;
+  border-radius: 0.5rem;
+}
+
+.keys.keys_big {
+  /* Width of first row */
+  /* 10*2.25 + 9 * 0.125 * 2 = 24.75 */
+
+  /* Width of this row */
+  /* 7*2.25 + 6 * 0.125 * 2 = 17.25 */
+  /* 24.75 - 17.25 = 7.5 */
+  /* 7.5 - 2 * 0.125 * 2 = 7 */
+  /* 7 / 2 = 3.5 */
+  width: 3.5rem;
+}
+
+#keyboard {
+  max-width: 400px;
 }
