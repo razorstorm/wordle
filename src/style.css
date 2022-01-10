@@ -55,7 +55,27 @@ div.progress{
 }
 
 #instructions {
+  position: relative;
   max-width: 576px;
+  background-color: white;
+  height: auto;
+}
+
+#instructions_text {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: all 0.5s linear;
+}
+
+.toggle {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  transition: all 0.5s linear;
+}
+
+.rotated {
+  transform: rotate(135deg);
 }
 
 #guesses {
@@ -68,4 +88,11 @@ div.progress{
   top: 0;
   left: 0;
   margin: 0;
+}
+
+.collapsed {
+  max-height: 0px !important;
+
+  /* opacity: 0; */
+  /* transition: height 12s linear; */
 }

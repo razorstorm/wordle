@@ -1,9 +1,7 @@
 import 'jquery';
 declare global {
   interface Window {
-    hireDev: Function;
-    makeCode: Function;
-    upgradeDev: Function;
+    toggleInstructions: Function;
   }
 }
 
@@ -40,6 +38,7 @@ jQuery(function () {
   let currWordDict = toDict(currWord);
   let currGuess = "";
   let guesses = [];
+  let instructionsShowing = true;
   console.log(currRow);
   const doc = $(document);
 
@@ -159,4 +158,16 @@ jQuery(function () {
       removeLetter();
     }
   });
+
+  window.toggleInstructions = () => {
+    if(instructionsShowing) {
+      $("#instructions_text").addClass("collapsed");
+      $(".toggle").addClass("rotated");
+    } else {
+      $("#instructions_text").removeClass("collapsed");
+      $(".toggle").removeClass("rotated");
+    }
+
+    instructionsShowing = !instructionsShowing;
+  }
 });
