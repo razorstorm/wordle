@@ -13,13 +13,83 @@
 <!-- TODO: Refactor the different panels into their own subcomponents -->
 
 <body>
-
   <div class="game">
     <div class="container">
       <div class="row">
-
         <div id="guesses" class="col border py-3">
-          <div class="row ms-1 justify-content-center empty">
+          <h1 class="fw-bolder text-center mb-5">WORDLE</h1>
+          <div class="container mb-5">
+            <div class="row justify-content-center">
+              <div class="col-5 border pt-3">
+                <h3>Instructions:</h3>
+                <hr />
+                <p>
+                  Guess the <strong>WORDLE</strong> in 6 tries.
+                </p>
+                <p>
+                  After each guess, the color of the tiles will change to show how close your guess was to the word.
+                </p>
+                <hr />
+                <div class="row justify-content-center empty">
+                  <div class="border demo guess-box empty bg-success white">
+                    W
+                  </div>
+                  <div class="border demo guess-box empty">
+                    E
+                  </div>
+                  <div class="border demo guess-box empty">
+                    A
+                  </div>
+                  <div class="border demo guess-box empty">
+                    R
+                  </div>
+                  <div class="border demo guess-box empty">
+                    Y
+                  </div>
+                </div>
+                <p class="mb-4 mt-2">The letter <strong>W</strong> is in the word and in the correct spot.</p>
+
+                <div class="row justify-content-center empty">
+                  <div class="border demo guess-box empty">
+                    P
+                  </div>
+                  <div class="border demo guess-box empty">
+                    I
+                  </div>
+                  <div class="border demo guess-box empty bg-warning white">
+                    L
+                  </div>
+                  <div class="border demo guess-box empty">
+                    O
+                  </div>
+                  <div class="border demo guess-box empty">
+                    T
+                  </div>
+                </div>
+                <p class="mb-4 mt-2">The letter <strong>L</strong> is in the word but in the wrong spot.</p>
+
+                <div class="row justify-content-center empty">
+                  <div class="border demo guess-box empty">
+                    V
+                  </div>
+                  <div class="border demo guess-box empty">
+                    A
+                  </div>
+                  <div class="border demo guess-box empty">
+                    G
+                  </div>
+                  <div class="border demo guess-box empty bg-secondary white">
+                    U
+                  </div>
+                  <div class="border demo guess-box empty">
+                    E
+                  </div>
+                </div>
+                <p class="mb-4 mt-2">The letter <strong>U</strong> is not in the word in any spot.</p>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center empty">
             <div class="border guess-box empty">
             </div>
             <div class="border guess-box empty">
@@ -31,19 +101,7 @@
             <div class="border guess-box empty">
             </div>
           </div>
-          <div class="row ms-1 justify-content-center empty">
-            <div class="border guess-box empty">
-            </div>
-            <div class="border guess-box empty">
-            </div>
-            <div class="border guess-box empty"> 
-            </div>
-            <div class="border guess-box empty">
-            </div>
-            <div class="border guess-box empty">
-            </div>
-          </div>
-          <div class="row ms-1 justify-content-center empty">
+          <div class="row justify-content-center empty">
             <div class="border guess-box empty">
             </div>
             <div class="border guess-box empty">
@@ -55,7 +113,7 @@
             <div class="border guess-box empty">
             </div>
           </div>
-          <div class="row ms-1 justify-content-center empty">
+          <div class="row justify-content-center empty">
             <div class="border guess-box empty">
             </div>
             <div class="border guess-box empty">
@@ -67,7 +125,7 @@
             <div class="border guess-box empty">
             </div>
           </div>
-          <div class="row ms-1 justify-content-center empty">
+          <div class="row justify-content-center empty">
             <div class="border guess-box empty">
             </div>
             <div class="border guess-box empty">
@@ -79,7 +137,19 @@
             <div class="border guess-box empty">
             </div>
           </div>
-          <div class="row ms-1 justify-content-center empty">
+          <div class="row justify-content-center empty">
+            <div class="border guess-box empty">
+            </div>
+            <div class="border guess-box empty">
+            </div>
+            <div class="border guess-box empty">
+            </div>
+            <div class="border guess-box empty">
+            </div>
+            <div class="border guess-box empty">
+            </div>
+          </div>
+          <div class="row justify-content-center empty">
             <div class="border guess-box empty">
             </div>
             <div class="border guess-box empty">

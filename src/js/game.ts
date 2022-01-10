@@ -35,7 +35,7 @@ const subtractDicts = (first: { [letter: string]: number }, second: { [letter: s
 }
 
 jQuery(function () {
-  let currWord = "NEWLY";
+  let currWord = "WOLDL";
   let currRow = $("#guesses>.empty").first();
   let currWordDict = toDict(currWord);
   let currGuess = "";
@@ -49,7 +49,7 @@ jQuery(function () {
       let wordList = data.split("\n");
       currWord = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase();
       currWordDict = toDict(currWord);
-      // console.log(currWord);
+      console.log(currWord);
     },
   );
 
