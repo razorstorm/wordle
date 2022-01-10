@@ -49,7 +49,7 @@ jQuery(function () {
       let wordList = data.split("\n");
       currWord = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase();
       currWordDict = toDict(currWord);
-      console.log(currWord);
+      // console.log(currWord);
     },
   );
 
