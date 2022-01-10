@@ -127,6 +127,7 @@ jQuery(function () {
       currRow = null;
     }
   }
+  // yes
 
   const isLetter = (text: string): boolean => {
     if (text.length !== 1) {
