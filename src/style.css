@@ -46,3 +46,7 @@ div.progress{
 .white {
   color: white;
 }
+
+#instructions {
+  max-width: 576px;
+}
