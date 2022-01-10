@@ -36,8 +36,8 @@ const subtractDicts = (first: { [letter: string]: number }, second: { [letter: s
 
 jQuery(function () {
   let currWord = "NEWLY";
-  let currWordDict = toDict(currWord);
   let currRow = $("#guesses>.empty").first();
+  let currWordDict = toDict(currWord);
   let currGuess = "";
   let guesses = [];
   console.log(currRow);
@@ -48,7 +48,8 @@ jQuery(function () {
     (data: string) => {
       let wordList = data.split("\n");
       currWord = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase();
-      console.log(currWord);
+      currWordDict = toDict(currWord);
+      // console.log(currWord);
     },
   );
 
@@ -68,7 +69,6 @@ jQuery(function () {
     if (currGuess.length < currWord.length) {
       currGuess += letter;
       const currBox = currRow.children(".empty").first();
-      console.log(currBox);
       currBox.text(letter);
       currBox.removeClass("empty");
       currBox.addClass("unchecked");
@@ -121,7 +121,6 @@ jQuery(function () {
     currGuess = "";
     currRow.removeClass("empty");
     currRow = $("#guesses>.empty").first();
-    console.log(currRow);
 
     if(results.every((item: string) => item === "CORRECT")) {
       alert("GOOD JOB, PRESS REFRESH TO START AGAIN WITH NEW WORD");
@@ -138,8 +137,8 @@ jQuery(function () {
 
   doc.on('keyup', function (e) {
     const char = e.originalEvent.key.toUpperCase();
-    console.log(char);
-    console.log(isLetter(char));
+    // console.log(char);
+    // console.log(isLetter(char));
 
     if (isLetter(char)) {
       addLetter(char);
