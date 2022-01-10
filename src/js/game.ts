@@ -1,6 +1,4 @@
 import 'jquery';
-import Panels from './panels';
-import Player from './player';
 declare global {
   interface Window {
     hireDev: Function;
@@ -37,17 +35,24 @@ const subtractDicts = (first: { [letter: string]: number }, second: { [letter: s
 }
 
 jQuery(function () {
-  let currWord = "GORGE";
+  let currWord = "NEWLY";
   let currWordDict = toDict(currWord);
   let currRow = $("#guesses>.empty").first();
   let currGuess = "";
   let guesses = [];
   console.log(currRow);
-
   const doc = $(document);
 
-  const removeLetter = () => {
+  $.get(
+    "words.txt",
+    (data: string) => {
+      let wordList = data.split("\n");
+      currWord = wordList[Math.floor(Math.random()*wordList.length)].toUpperCase();
+      console.log(currWord);
+    },
+  );
 
+  const removeLetter = () => {
     if (currGuess.length > 0) {
       currGuess = currGuess.substring(0, currGuess.length - 1);
       const currBox = currRow.children(".unchecked").last();
@@ -59,6 +64,7 @@ jQuery(function () {
   }
 
   const addLetter = (letter: string) => {
+    console.log(currWord);
     if (currGuess.length < currWord.length) {
       currGuess += letter;
       const currBox = currRow.children(".empty").first();
