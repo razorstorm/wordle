@@ -16,7 +16,6 @@ div.progress{
 }
 
 .guess-box {
-  /* display: inline-block; */
   width: 4.25rem;
   height: 4.25rem;
   margin: .25rem;
@@ -129,4 +128,20 @@ div.progress{
 
 #keyboard {
   max-width: 400px;
+}
+
+#alerts {
+  top: 5rem;
+  z-index: 5;
+}
+
+.alert {
+  padding: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: auto;
+  margin: 0;
+  text-align: center;
+  z-index: 5;
+  box-shadow: 2px 2px 15px 0 rgba(255, 0, 0, 0.5);
 }

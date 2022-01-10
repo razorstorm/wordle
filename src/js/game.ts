@@ -43,6 +43,7 @@ jQuery(function () {
   const toggle = $(".toggle");
   const keys = $(".keys");
   const doc = $(document);
+  const alerts = $("#alerts");
 
   $.get(
     "words.txt",
@@ -52,6 +53,15 @@ jQuery(function () {
       currWordDict = toDict(currWord);
     },
   );
+
+  const alertInvalidWord = () => {
+    const alert = $("<div class='row px-0 mb-3 justify-content-center'><div class='alert white bg-danger'>Word not found in wordlist!</div></div>");
+    alerts.append(alert);
+    alert.delay(1000).fadeOut(400, function () {
+      console.log($(this));
+      $(this).remove();
+    });
+  }
 
   const removeLetter = () => {
     if (currGuess.length > 0) {
@@ -163,6 +173,8 @@ jQuery(function () {
   doc.on('keyup', function (e) {
     const char = e.originalEvent.key.toUpperCase();
     processChar(char);
+
+    alertInvalidWord();
   });
 
   window.toggleInstructions = () => {
