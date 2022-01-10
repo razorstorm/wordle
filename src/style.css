@@ -59,6 +59,7 @@ div.progress{
   max-width: 576px;
   background-color: white;
   height: auto;
+  box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.2);
 }
 
 #instructions_text {
