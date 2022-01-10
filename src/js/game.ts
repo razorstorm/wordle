@@ -36,7 +36,7 @@ const subtractDicts = (first: { [letter: string]: number }, second: { [letter: s
 
 jQuery(function () {
   let currWord = "WOLDL";
-  let currRow = $("#guesses>.empty").first();
+  let currRow = $("#guessesContainer .row.empty").first();
   let currWordDict = toDict(currWord);
   let currGuess = "";
   let guesses = [];
@@ -68,7 +68,9 @@ jQuery(function () {
     console.log(currWord);
     if (currGuess.length < currWord.length) {
       currGuess += letter;
+      console.log(currGuess);
       const currBox = currRow.children(".empty").first();
+      console.log(currRow, currBox);
       currBox.text(letter);
       currBox.removeClass("empty");
       currBox.addClass("unchecked");
@@ -120,14 +122,13 @@ jQuery(function () {
     guesses.push(currGuess);
     currGuess = "";
     currRow.removeClass("empty");
-    currRow = $("#guesses>.empty").first();
+    currRow = $("#guessesContainer .row.empty").first();
 
     if(results.every((item: string) => item === "CORRECT")) {
       alert("GOOD JOB, PRESS REFRESH TO START AGAIN WITH NEW WORD");
       currRow = null;
     }
   }
-  // yes
 
   const isLetter = (text: string): boolean => {
     if (text.length !== 1) {

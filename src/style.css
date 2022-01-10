@@ -50,3 +50,7 @@ div.progress{
 #instructions {
   max-width: 576px;
 }
+
+#guesses {
+  min-width: 450px;
+}
