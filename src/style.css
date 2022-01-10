@@ -27,9 +27,13 @@ div.progress{
   align-items: center; /* Vertical center alignment */
   justify-content: center; /* Horizontal center alignment */
   text-transform: uppercase;
-  color: white;
+  color: black;
   text-align: center;
   font-weight: bolder;
   font-size: 2.5rem;
   /* user-select: none; */
+}
+
+.white {
+  color: white;
 }
