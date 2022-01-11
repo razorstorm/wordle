@@ -110,6 +110,7 @@ div.progress{
   user-select: none;
   transition: all 0.2s linear;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   position: relative;
   border-radius: 0.5rem;
 }

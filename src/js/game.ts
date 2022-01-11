@@ -1,4 +1,7 @@
 import 'jquery';
+import 'jquery-ui';
+require('jquery-ui/ui/effects/effect-shake');
+
 declare global {
   interface Window {
     toggleInstructions: Function;
@@ -39,6 +42,8 @@ jQuery(function () {
   let currGuess = "";
   let guesses = [];
   let instructionsShowing = true;
+  let wordList = [];
+  let wordSet: Set<string>;
   const instructions_text = $("#instructions_text");
   const toggle = $(".toggle");
   const keys = $(".keys");
@@ -48,19 +53,24 @@ jQuery(function () {
   $.get(
     "words.txt",
     (data: string) => {
-      let wordList = data.split("\n");
+      wordList = data.toUpperCase().split("\n");
+      wordSet = new Set(wordList);
       currWord = wordList[Math.floor(Math.random() * wordList.length)].toUpperCase();
       currWordDict = toDict(currWord);
     },
   );
 
-  const alertInvalidWord = () => {
-    const alert = $("<div class='row px-0 mb-3 justify-content-center'><div class='alert white bg-danger'>Word not found in wordlist!</div></div>");
+  const alertError = (error: string) => {
+    const alert = $("<div class='row px-0 mb-3 justify-content-center'><div class='alert white bg-danger'>" + error + "</div></div>");
     alerts.append(alert);
     alert.delay(1000).fadeOut(400, function () {
-      console.log($(this));
       $(this).remove();
     });
+  }
+
+  const alertInvalidWord = () => {
+    alertError("Word not found in wordlist!");
+    currRow.effect("shake");
   }
 
   const removeLetter = () => {
@@ -86,8 +96,12 @@ jQuery(function () {
   }
 
   const checkGuess = () => {
-    // TODO only allow check if guess is a valid word
     if (currGuess.length != currWord.length) {
+      return;
+    }
+
+    if (!wordSet.has(currGuess)) {
+      alertInvalidWord();
       return;
     }
 
@@ -173,8 +187,6 @@ jQuery(function () {
   doc.on('keyup', function (e) {
     const char = e.originalEvent.key.toUpperCase();
     processChar(char);
-
-    alertInvalidWord();
   });
 
   window.toggleInstructions = () => {
