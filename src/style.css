@@ -1,3 +1,7 @@
+.disable-dbl-tap-zoom {
+  touch-action: manipulation;
+}
+
 .row.row-for-progress {
   display: flex;
   align-items: center;
